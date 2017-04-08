@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">PopularMovies</string>
+
+    <string name="general_youtube_alert_error">Ocorreu um erro ao reproduzir o vídeo, tente novamente.</string>
+    <string name="general_alert_error">Erro</string>
+    <string name="dialog_ok_button">OK</string>
+    <string name="dialog_cancel_button">CANCELAR</string>
+    <string name="dialog_attention_title">Atenção</string>
+    <string name="connection_error">Erro de conexão\nToque para tentar novamente</string>
+    <string name="information_not_avaiable">Informação indisponível</string>
+
+
+    <!-- DISCOVER MOVIES API SORT TYPES -->
+    <string name="popularity_asc" translatable="false">popularity.asc</string>
+    <string name="popularity_desc" translatable="false">popularity.desc</string>
+    <string name="release_date_asc" translatable="false">release_date.asc</string>
+    <string name="release_date_desc" translatable="false">release_date.desc</string>
+    <string name="original_title_asc" translatable="false">original_title.asc</string>
+    <string name="original_title_desc" translatable="false">original_title.desc</string>
+    <string name="vote_average_asc" translatable="false">vote_average.asc</string>
+    <string name="vote_average_desc" translatable="false">vote_average.desc</string>
+    <string name="movie_db_image_endpoit">http://image.tmdb.org/t/p/w185/</string>
+    <string name="movie_db_image_endpoit_big">http://image.tmdb.org/t/p/w342/</string>
+
+
+    <!-- MOVIE DETAIL -->
+
+    <string name="favorite_not_marked_button" translatable="false">mark as\nfavorite</string>
+    <string name="favorite_marked_button" translatable="false">favorite</string>
+    <string name="toolbar_movide_detail">MovieDetail</string>
+    <string name="detail_not_avaiable">Not avaiable</string>
+    <string name="movie_runtime">min</string>
+
+
+</resources>
+

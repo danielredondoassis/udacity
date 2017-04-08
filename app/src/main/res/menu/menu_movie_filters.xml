@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".view.MainActivity">
+    <item android:id="@+id/popularity_asc"
+        android:title="Popularidade ASC"
+        app:showAsAction="never" />
+    <item android:id="@+id/popularity_desc"
+        android:title="Popularidade DESC"
+        app:showAsAction="never" />
+    <item android:id="@+id/release_date_asc"
+        android:title="Data de Lançamento ASC"
+        app:showAsAction="never" />
+    <item android:id="@+id/release_date_desc"
+        android:title="Data de Lançamento DESC"
+        app:showAsAction="never" />
+    <item android:id="@+id/original_title_asc"
+        android:title="Título Original (EN-US) ASC"
+        app:showAsAction="never" />
+    <item android:id="@+id/original_title_desc"
+        android:title="Título Original (EN-US) DESC"
+        app:showAsAction="never" />
+    <item android:id="@+id/vote_average_asc"
+        android:title="Avaliação ASC"
+        app:showAsAction="never" />
+    <item android:id="@+id/vote_average_dessc"
+        android:title="Avaliação DESC"
+        app:showAsAction="never" />
+</menu>
