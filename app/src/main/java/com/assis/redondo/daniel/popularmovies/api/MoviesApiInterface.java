@@ -1,5 +1,6 @@
 package com.assis.redondo.daniel.popularmovies.api;
 
+import com.assis.redondo.daniel.popularmovies.api.response.MovieReviewResponse;
 import com.assis.redondo.daniel.popularmovies.api.response.MovieVideoResponse;
 import com.assis.redondo.daniel.popularmovies.api.response.PopularMoviesResponse;
 import com.assis.redondo.daniel.popularmovies.api.response.MovieDetailResponse;
@@ -30,6 +31,10 @@ public interface MoviesApiInterface {
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @GET("movie/{movie_id}/videos")
     Observable<MovieVideoResponse> retrieveMovieTrailer(@Path("movie_id") int movie_id, @Query("api_key") String apiKey);
+
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @GET("movie/{movie_id}/reviews")
+    Observable<MovieReviewResponse> retrieveMovieReviews(@Path("movie_id") int movie_id, @Query("api_key") String apiKey);
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @GET("movie/{movie_id}")

@@ -1,85 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        layout="@layout/toolbar"
-        android:id="@+id/toolbar"
-        android:layout_alignParentTop="true"/>
-
-    <RelativeLayout
-        android:id="@+id/movieHeaderLayout"
-        android:layout_below="@+id/toolbar"
+    ​
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/green">
-        <TextView
-            android:id="@+id/textMovieName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chapie"
-            android:layout_margin="16dp"
-            android:layout_centerVertical="true"
-            android:textColor="@color/white"
-            android:textSize="40dp" />
-    </RelativeLayout>
+        android:background="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        ​
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="275dp"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="64dp"
+            app:layout_scrollFlags="scroll|snap">
+            ​
+            <ImageView
+                android:id="@+id/imageMoviePoster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax" />
 
-    <ScrollView
-        android:layout_below="@+id/movieHeaderLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:minHeight="?attr/actionBarSize"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:layout_scrollFlags="scroll|enterAlways|snap" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+        ​​
 
         <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/movieDetailsLayout"
+            android:id="@+id/title_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <TextView
+                android:id="@+id/textMovieName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chapie"
+                android:gravity="center"
+                android:layout_margin="16dp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textSize="36dp" />
 
             <LinearLayout
-                android:id="@+id/movideDescriptionLayout"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.5">
-                    <ImageView
-                        android:id="@+id/imageMoviePoster"
-                        android:layout_marginLeft="32dp"
-                        android:layout_width="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:layout_height="200dp" />
-                </RelativeLayout>
-
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/margin_32"
-                    android:layout_marginRight="@dimen/margin_32"
-                    android:layout_marginTop="@dimen/margin_16"
-                    android:layout_marginBottom="10dp"
+                    android:layout_weight="3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
+
                     <TextView
-                        android:id="@+id/textMovieYear"
-                        android:text="2015"
-                        android:padding="@dimen/padding_5"
-                        android:textSize="@dimen/text_release_year_size"
-                        android:textColor="@color/black"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    android:id="@+id/textMovieYear"
+                    android:text="2015"
+                    android:gravity="center"
+                        android:layout_marginTop="11dp"
+                    android:padding="@dimen/padding_5"
+                    android:textSize="@dimen/text_release_year_size"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/textMovieLenght"
                         android:text="120min"
+                        android:gravity="center"
                         android:padding="@dimen/padding_5"
                         android:textSize="@dimen/text_lenght_size"
                         android:textColor="@color/black"
@@ -89,34 +92,48 @@
                     <TextView
                         android:id="@+id/textMovieRate"
                         android:text="8.0/10"
+                        android:gravity="center"
                         android:padding="@dimen/padding_5"
                         android:textSize="@dimen/text_rate_size"
                         android:textColor="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <Button
-                        android:id="@+id/btnFavoriteMovie"
-                        android:background="@color/green"
-                        android:visibility="gone"
-                        android:text="@string/favorite_not_marked_button"
-                        android:layout_marginTop="@dimen/margin_16"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp" />
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/textMovieDesc"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/margin_16"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textMovieDesc"
-                android:layout_margin="@dimen/margin_16"
-                android:text="AShudhauoshdoahsdhoas dasbudouasoudhashdouhasoudhasd asdhasouhdouashudohashduashoduhaosud asdnaosuhdouashdouhasuodhaoushdoua"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+            ​
         </LinearLayout>
 
-    </ScrollView>
-
-
-</RelativeLayout>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:tabSelectedTextColor="?android:attr/textColorPrimaryInverse"
+            app:tabTextColor="@color/colorAccent"
+            app:tabIndicatorColor="?android:attr/textColorPrimaryInverse"
+            app:tabIndicatorHeight="4dp" />
+    </android.support.design.widget.AppBarLayout>
+    ​
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    ​
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnFavoriteMovie"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:elevation="8dp"
+        android:layout_gravity="bottom|right|end"
+        android:src="@android:drawable/ic_menu_add"
+        android:layout_margin="@dimen/margin_16"
+        android:clickable="true" />
+</android.support.design.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package com.assis.redondo.daniel.popularmovies;
+package com.assis.redondo.daniel.popularmovies.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.assis.redondo.daniel.popularmovies.R;
 import com.assis.redondo.daniel.popularmovies.api.response.PopularMoviesResponse;
 import com.assis.redondo.daniel.popularmovies.api.service.TheMovieDBApiService;
 import com.assis.redondo.daniel.popularmovies.view.adapter.MoviesAdapter;

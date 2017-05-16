@@ -5,10 +5,9 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.assis.redondo.daniel.popularmovies.MovieDetailActivity;
+import com.assis.redondo.daniel.popularmovies.view.MovieDetailActivity;
 import com.assis.redondo.daniel.popularmovies.R;
 import com.assis.redondo.daniel.popularmovies.api.model.MovieModel;
 import com.squareup.picasso.Picasso;
