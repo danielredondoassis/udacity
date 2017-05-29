@@ -47,6 +47,11 @@ public class MoviesAdapter extends BaseAdapter {
             return this;
         }
 
+        public Builder setFavoriteSource(ArrayList<MovieModel> favoriteMovies) {
+            this.mSource = new ArrayList<>(favoriteMovies);
+            return this;
+        }
+
         public MoviesAdapter build() {
             return new MoviesAdapter(this);
         }

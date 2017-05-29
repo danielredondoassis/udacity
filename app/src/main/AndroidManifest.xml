@@ -12,14 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".PopularMoviesApplication">
-        <activity android:name=".view.MoviesActivity">
+        <activity android:name=".view.activity.MoviesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MovieDetailActivity"/>
+        <activity android:name=".view.activity.MovieDetailActivity"/>
+        <activity android:name=".view.activity.FavoriteMoviesActivity"/>
     </application>
 
 </manifest>

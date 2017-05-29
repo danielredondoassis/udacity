@@ -1,5 +1,7 @@
 package com.assis.redondo.daniel.popularmovies.api.model;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.io.Serializable;
 
 /**
@@ -8,9 +10,16 @@ import java.io.Serializable;
 
 public class MovieReviewModel implements Serializable {
 
+    @DatabaseField(id = true)
     private String id;
+
+    @DatabaseField()
     private String author;
+
+    @DatabaseField()
     private String content;
+
+    @DatabaseField()
     private String url;
 
     public String getId() {

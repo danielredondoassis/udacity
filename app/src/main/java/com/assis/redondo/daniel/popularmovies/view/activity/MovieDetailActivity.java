@@ -1,4 +1,4 @@
-package com.assis.redondo.daniel.popularmovies.view;
+package com.assis.redondo.daniel.popularmovies.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,8 +21,9 @@ import android.widget.TextView;
 import com.assis.redondo.daniel.popularmovies.R;
 import com.assis.redondo.daniel.popularmovies.api.model.MovieModel;
 import com.assis.redondo.daniel.popularmovies.api.response.MovieDetailResponse;
-import com.assis.redondo.daniel.popularmovies.api.response.MovieVideoResponse;
 import com.assis.redondo.daniel.popularmovies.api.service.TheMovieDBApiService;
+import com.assis.redondo.daniel.popularmovies.controller.DataBaseController;
+import com.assis.redondo.daniel.popularmovies.view.fragment.MovieTabFragment;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -106,11 +106,7 @@ public class MovieDetailActivity extends AppCompatActivity implements AppBarLayo
         setupBasicMovieDetailUI(mMovieModel);
         requestMovieDetailedInfo(movieID);
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         mAppbar.addOnOffsetChangedListener(this);
         mMaxScrollSize = mAppbar.getTotalScrollRange();
@@ -204,11 +200,15 @@ public class MovieDetailActivity extends AppCompatActivity implements AppBarLayo
         mTextMovieYear.setText(Integer.toString(year));
         mTextMovieDesc.setText(movieModel.getOverview());
         mTextMovieRate.setText(movieModel.getVoteAverage());
+        mBtnFavoriteMovie.setSelected(DataBaseController.INSTANCE.isFavorite(mMovieModel) ? true : false);
 
-        mBtnFavoriteMovie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO add movie to DB;
+        mBtnFavoriteMovie.setOnClickListener(v -> {
+            if(DataBaseController.INSTANCE.isFavorite(mMovieModel)){
+                DataBaseController.INSTANCE.deleteFavoriteMovie(mMovieModel);
+                mBtnFavoriteMovie.setSelected(false);
+            } else {
+                DataBaseController.INSTANCE.saveFavoriteMovie(mMovieModel);
+                mBtnFavoriteMovie.setSelected(true);
             }
         });
     }

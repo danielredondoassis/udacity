@@ -13,30 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.assis.redondo.daniel.popularmovies.view;
+package com.assis.redondo.daniel.popularmovies.view.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.assis.redondo.daniel.popularmovies.R;
 import com.assis.redondo.daniel.popularmovies.api.model.MovieModel;
-import com.assis.redondo.daniel.popularmovies.api.model.MovieReviewModel;
-import com.assis.redondo.daniel.popularmovies.api.model.MovieVideoModel;
 import com.assis.redondo.daniel.popularmovies.api.response.MovieReviewResponse;
 import com.assis.redondo.daniel.popularmovies.api.response.MovieVideoResponse;
 import com.assis.redondo.daniel.popularmovies.api.service.TheMovieDBApiService;
+import com.assis.redondo.daniel.popularmovies.view.activity.MovieDetailActivity;
 import com.assis.redondo.daniel.popularmovies.view.adapter.InfoPageAdapter;
-import com.assis.redondo.daniel.popularmovies.view.adapter.holder.InfoViewHolder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

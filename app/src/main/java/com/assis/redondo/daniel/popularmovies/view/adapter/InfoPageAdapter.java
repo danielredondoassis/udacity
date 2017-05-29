@@ -1,6 +1,9 @@
 package com.assis.redondo.daniel.popularmovies.view.adapter;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +12,7 @@ import android.view.ViewGroup;
 import com.assis.redondo.daniel.popularmovies.R;
 import com.assis.redondo.daniel.popularmovies.api.model.MovieReviewModel;
 import com.assis.redondo.daniel.popularmovies.api.model.MovieVideoModel;
-import com.assis.redondo.daniel.popularmovies.view.MovieDetailActivity;
+import com.assis.redondo.daniel.popularmovies.view.activity.MovieDetailActivity;
 import com.assis.redondo.daniel.popularmovies.view.adapter.holder.InfoViewHolder;
 
 import java.util.ArrayList;
@@ -60,7 +63,17 @@ public class InfoPageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             MovieVideoModel trailerModel = mTrailerSource.get(position);
             infoHolder.setup(context, trailerModel);
+            infoHolder.holderLayout.setOnClickListener(v -> watchYoutubeVideo(context,trailerModel.getKey()));
+        }
+    }
 
+    public static void watchYoutubeVideo(Context context, String id){
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(id));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.youtube_endpoint) + id));
+        try {
+            context.startActivity(appIntent);
+        } catch (ActivityNotFoundException ex) {
+            context.startActivity(webIntent);
         }
     }
 
