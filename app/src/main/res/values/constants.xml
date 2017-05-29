@@ -2,7 +2,7 @@
 <resources>
 
     <!-- put here your API key to test the app properly -->
-    <string name="api_key" translatable="false">f9b0b82858138cac8f1d8fb18fbe339a</string>
+    <string name="api_key" translatable="false"></string>
 
     <dimen name="text_release_year_size">18dp</dimen>
     <dimen name="text_lenght_size">16dp</dimen>
