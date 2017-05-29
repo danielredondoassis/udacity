@@ -1,6 +1,8 @@
-package com.assis.redondo.daniel.popularmovies.view;
+package com.assis.redondo.daniel.popularmovies.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +16,7 @@ import android.widget.ProgressBar;
 import com.assis.redondo.daniel.popularmovies.R;
 import com.assis.redondo.daniel.popularmovies.api.response.PopularMoviesResponse;
 import com.assis.redondo.daniel.popularmovies.api.service.TheMovieDBApiService;
+import com.assis.redondo.daniel.popularmovies.controller.DataBaseController;
 import com.assis.redondo.daniel.popularmovies.view.adapter.MoviesAdapter;
 
 import butterknife.BindView;
@@ -41,6 +44,9 @@ public class MoviesActivity extends AppCompatActivity {
     ProgressBar mProgressBar;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.btnFavoriteMovies)
+    FloatingActionButton mBtnFavoriteMovies;
+
     private Subscription mSub;
     private MoviesAdapter mAdapter;
     private String mCurrentSort;
@@ -88,14 +94,21 @@ public class MoviesActivity extends AppCompatActivity {
             setupMoviesAdapter(mMoviesResponse);
         } else {
             setupLoadingUI();
-            mSortTitle = "Popularidade ASC";
-            requestMovies(getString(R.string.popularity_asc));
+            mSortTitle = getString(R.string.popularity_title_desc);
+            requestMovies(getString(R.string.popularity_desc));
         }
     }
 
     private void setupLoadingUI() {
         mErrorLayout.setVisibility(View.GONE);
         mLoadingLayout.setVisibility(View.VISIBLE);
+    }
+
+
+    @OnClick({R.id.btnFavoriteMovies})
+    protected void openFavorites() {
+        Intent intent = new Intent(this, FavoriteMoviesActivity.class);
+        startActivity(intent);
     }
 
     @OnClick({R.id.errorLayout})
@@ -164,6 +177,7 @@ public class MoviesActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        mBtnFavoriteMovies.setVisibility(DataBaseController.INSTANCE.getFavoriteMovies().size() > 0 ? View.VISIBLE : View.GONE);
     }
 
     @Override

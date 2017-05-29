@@ -1,6 +1,7 @@
 package com.assis.redondo.daniel.popularmovies.view.adapter.holder;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -8,7 +9,6 @@ import android.widget.TextView;
 import com.assis.redondo.daniel.popularmovies.R;
 import com.assis.redondo.daniel.popularmovies.api.model.MovieReviewModel;
 import com.assis.redondo.daniel.popularmovies.api.model.MovieVideoModel;
-import com.assis.redondo.daniel.popularmovies.view.MovieDetailActivity;
 
 /**
  * Created by DT on 5/16/17.
@@ -17,9 +17,11 @@ import com.assis.redondo.daniel.popularmovies.view.MovieDetailActivity;
 public class InfoViewHolder extends RecyclerView.ViewHolder {
 
 
-    private final TextView mTextInfo1;
-    private final TextView mTextInfo2;
-    private final TextView mTextInfo3;
+    public final TextView mTextInfo1;
+    public final TextView mTextInfo2;
+    public final TextView mTextInfo3;
+    public final CardView holderLayout;
+
 
     public InfoViewHolder(View itemView) {
         super(itemView);
@@ -27,6 +29,7 @@ public class InfoViewHolder extends RecyclerView.ViewHolder {
         mTextInfo1 = (TextView) itemView.findViewById(R.id.textInfo1);
         mTextInfo2 = (TextView) itemView.findViewById(R.id.textInfo2);
         mTextInfo3 = (TextView) itemView.findViewById(R.id.textInfo3);
+        holderLayout = (CardView) itemView.findViewById(R.id.holderLayout);
     }
 
 

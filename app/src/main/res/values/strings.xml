@@ -48,8 +48,16 @@
 		Aenean ullamcorper dolor non condimentum congue. Aenean mauris nunc, pellentesque at placerat vitae,
 		aliquet quis orci. Curabitur maximus augue ut bibendum sagittis.
 	</string>
-    <string name="tab_reviews">REVIEWS</string>
+
+    <string name="tab_reviews">AVALIAÇÕES</string>
     <string name="tab_trailers">TRAILERS</string>
+    <string name="favorite_movies">Filmes Favoritos</string>
+    <string name="no_favorite_movies">Você ainda não tem filmes favoritados.\nEntre no detalhe de um filme e marque-o como favorito para criar sua própria coleção.</string>
+    <string name="youtube_endpoint">http://www.youtube.com/watch?v=</string>
+    <string name="youtube_app_url">vnd.youtube:</string>
+    <string name="movie_added_to_favorites">Filme adicionado aos seus favoritos.</string>
+    <string name="movie_added_to_favorites_failed">Ocorreu um erro ao adicionar o filme aos favoritos, tente novamente.</string>
+    <string name="popularity_title_desc">Popularidade DESC</string>
 
 </resources>
 

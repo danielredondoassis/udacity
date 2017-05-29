@@ -21,18 +21,6 @@
         android:id="@+id/toolbar"
         android:layout_alignParentTop="true"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btnFavoriteMovies"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:elevation="8dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom|right|end"
-        android:src="@android:drawable/star_big_on"
-        android:layout_margin="@dimen/margin_16"
-        android:clickable="true" />
-
     <include
         android:id="@+id/errorLayout"
         layout="@layout/error_layout"

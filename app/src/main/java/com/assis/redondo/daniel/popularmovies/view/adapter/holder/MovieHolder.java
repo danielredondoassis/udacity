@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.assis.redondo.daniel.popularmovies.view.MovieDetailActivity;
+import com.assis.redondo.daniel.popularmovies.view.activity.MovieDetailActivity;
 import com.assis.redondo.daniel.popularmovies.R;
 import com.assis.redondo.daniel.popularmovies.api.model.MovieModel;
 import com.squareup.picasso.Picasso;

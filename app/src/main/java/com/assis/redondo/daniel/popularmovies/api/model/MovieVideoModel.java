@@ -1,5 +1,7 @@
 package com.assis.redondo.daniel.popularmovies.api.model;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.io.Serializable;
 
 /**
@@ -8,13 +10,28 @@ import java.io.Serializable;
 
 public class MovieVideoModel implements Serializable {
 
+    @DatabaseField(id = true)
     private String id;
+
+    @DatabaseField()
     private String iso_639_1;
+
+    @DatabaseField()
     private String iso_3166_1;
+
+    @DatabaseField()
     private String key;
+
+    @DatabaseField()
     private String name;
+
+    @DatabaseField()
     private String site;
+
+    @DatabaseField()
     private String size;
+
+    @DatabaseField()
     private String type;
 
     public String getId() {
