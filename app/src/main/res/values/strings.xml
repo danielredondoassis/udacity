@@ -21,7 +21,8 @@
     <string name="vote_average_desc" translatable="false">vote_average.desc</string>
     <string name="movie_db_image_endpoit">http://image.tmdb.org/t/p/w185/</string>
     <string name="movie_db_image_endpoit_big">http://image.tmdb.org/t/p/w342/</string>
-
+    <string name="top_rated" translatable="false">top_rated</string>
+    <string name="most_popular" translatable="false">most_popular</string>
 
     <!-- MOVIE DETAIL -->
 

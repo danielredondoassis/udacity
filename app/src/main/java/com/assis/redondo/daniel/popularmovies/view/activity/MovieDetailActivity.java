@@ -1,6 +1,10 @@
 package com.assis.redondo.daniel.popularmovies.view.activity;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -12,6 +16,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -23,6 +28,8 @@ import com.assis.redondo.daniel.popularmovies.api.model.MovieModel;
 import com.assis.redondo.daniel.popularmovies.api.response.MovieDetailResponse;
 import com.assis.redondo.daniel.popularmovies.api.service.TheMovieDBApiService;
 import com.assis.redondo.daniel.popularmovies.controller.DataBaseController;
+import com.assis.redondo.daniel.popularmovies.database.MoviesCPContract;
+import com.assis.redondo.daniel.popularmovies.database.MoviesContentProvider;
 import com.assis.redondo.daniel.popularmovies.view.fragment.MovieTabFragment;
 import com.squareup.picasso.Picasso;
 
@@ -200,15 +207,18 @@ public class MovieDetailActivity extends AppCompatActivity implements AppBarLayo
         mTextMovieYear.setText(Integer.toString(year));
         mTextMovieDesc.setText(movieModel.getOverview());
         mTextMovieRate.setText(movieModel.getVoteAverage());
-        mBtnFavoriteMovie.setSelected(DataBaseController.INSTANCE.isFavorite(mMovieModel) ? true : false);
+
+
+
+
+        mBtnFavoriteMovie.setSelected(isFavorite(mMovieModel) ? true : false);
 
         mBtnFavoriteMovie.setOnClickListener(v -> {
-            if(DataBaseController.INSTANCE.isFavorite(mMovieModel)){
-                DataBaseController.INSTANCE.deleteFavoriteMovie(mMovieModel);
-                mBtnFavoriteMovie.setSelected(false);
+
+            if(isFavorite(mMovieModel)){
+                removeMovieFromContentProvider(movieModel);
             } else {
-                DataBaseController.INSTANCE.saveFavoriteMovie(mMovieModel);
-                mBtnFavoriteMovie.setSelected(true);
+                addMovieToContentProvider(movieModel);
             }
         });
     }
@@ -247,6 +257,53 @@ public class MovieDetailActivity extends AppCompatActivity implements AppBarLayo
         Timber.e(throwable, "movies load error");
         //setupErrorUI();
         setupMovieRemainingUI(null);
+    }
+
+    private void addMovieToContentProvider(MovieModel movieModel) {
+
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(MoviesCPContract.MovieEntry._ID, movieModel.getId());
+            contentValues.put(MoviesCPContract.MovieEntry.COLUMN_ORIGINAL_LANGUAGE, movieModel.getOriginalLanguage());
+            contentValues.put(MoviesCPContract.MovieEntry.COLUMN_TITLE, movieModel.getTitle());
+            contentValues.put(MoviesCPContract.MovieEntry.COLUMN_ORIGINAL_TITLE, movieModel.getOriginalTitle());
+            contentValues.put(MoviesCPContract.MovieEntry.COLUMN_ADULT, movieModel.isAdult());
+            contentValues.put(MoviesCPContract.MovieEntry.COLUMN_POPULARITY, movieModel.getPopularity());
+            contentValues.put(MoviesCPContract.MovieEntry.COLUMN_POSTER_PATH, movieModel.getPosterPath());
+            contentValues.put(MoviesCPContract.MovieEntry.COLUMN_OVERVIEW, movieModel.getOverview());
+            contentValues.put(MoviesCPContract.MovieEntry.COLUMN_RELEASE_DATE, movieModel.getReleaseDate());
+            contentValues.put(MoviesCPContract.MovieEntry.COLUMN_VOTE_AVERAGE, movieModel.getVoteAverage());
+            contentValues.put(MoviesCPContract.MovieEntry.COLUMN_VOTE_COUNT, movieModel.getVoteCount());
+            contentValues.put(MoviesCPContract.MovieEntry.COLUMN_VIDEO, movieModel.isVideo());
+            Uri uri = getContentResolver().insert(MoviesCPContract.MovieEntry.CONTENT_URI, contentValues);
+            mBtnFavoriteMovie.setSelected(true);
+            Log.w("URI: ", uri.toString());
+        }catch (UnsupportedOperationException e){
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isFavorite(MovieModel movieModel) {
+        Uri singleUri = ContentUris.withAppendedId(MoviesCPContract.MovieEntry.CONTENT_URI,movieModel.getId());
+        String[] titleColumn = {MoviesCPContract.MovieEntry.COLUMN_TITLE};
+        Cursor coverCursor = getContentResolver().query(singleUri,titleColumn , null, null, null);
+
+        boolean isFavorite = coverCursor.getCount() > 0 ? true : false;
+        coverCursor.close();
+        return isFavorite;
+    }
+
+    private void removeMovieFromContentProvider(MovieModel movieModel) {
+        try {
+            int id = movieModel.getId();
+            String stringId = Integer.toString(id);
+            Uri uri = MoviesCPContract.MovieEntry.CONTENT_URI;
+            uri = uri.buildUpon().appendPath(stringId).build();
+            getContentResolver().delete(uri, null, null);
+            mBtnFavoriteMovie.setSelected(false);
+        }catch (UnsupportedOperationException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

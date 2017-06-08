@@ -25,8 +25,12 @@ public interface MoviesApiInterface {
     Observable<PopularMoviesResponse> retrieveMovies(@Query("api_key") String apiKey, @Query("sort_by") String sort_option);
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
-    @GET("popular")
-    Observable<PopularMoviesResponse> retrievePopularMovies(@Query("api_key") String apiKey, @Query("page") int page);
+    @GET("movie/top_rated")
+    Observable<PopularMoviesResponse> retrieveTopRated(@Query("api_key") String apiKey);
+
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @GET("movie/popular")
+    Observable<PopularMoviesResponse> retrievePopularMovies(@Query("api_key") String apiKey);
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @GET("movie/{movie_id}/videos")

@@ -21,6 +21,13 @@
         </activity>
         <activity android:name=".view.activity.MovieDetailActivity"/>
         <activity android:name=".view.activity.FavoriteMoviesActivity"/>
+
+        <provider
+            android:name=".database.MoviesContentProvider"
+            android:authorities="com.assis.redondo.daniel.popularmovies"
+            android:exported="false"
+            android:protectionLevel="signature"
+            android:syncable="true"/>
     </application>
 
 </manifest>

@@ -1,12 +1,15 @@
 package com.assis.redondo.daniel.popularmovies.view.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +20,10 @@ import com.assis.redondo.daniel.popularmovies.R;
 import com.assis.redondo.daniel.popularmovies.api.response.PopularMoviesResponse;
 import com.assis.redondo.daniel.popularmovies.api.service.TheMovieDBApiService;
 import com.assis.redondo.daniel.popularmovies.controller.DataBaseController;
+import com.assis.redondo.daniel.popularmovies.database.MoviesCPContract;
 import com.assis.redondo.daniel.popularmovies.view.adapter.MoviesAdapter;
+
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -145,19 +151,31 @@ public class MoviesActivity extends AppCompatActivity {
         mCurrentSort = sortOption;
         getSupportActionBar().setTitle(mSortTitle);
 
-        Observable<PopularMoviesResponse> call = TheMovieDBApiService.INSTANCE.getMoviesAPI()
-                .retrieveMovies(
-                        getString(R.string.api_key),
-                        sortOption);
+        Observable<PopularMoviesResponse> call = null;
 
-
-        if (mSub != null) {
-            mSub.unsubscribe();
-            mSub = null;
+        if(sortOption.contentEquals(getString(R.string.most_popular))){
+            call = TheMovieDBApiService.INSTANCE.getMoviesAPI()
+                    .retrievePopularMovies(getString(R.string.api_key));
+        } else if (sortOption.contentEquals(getString(R.string.top_rated))){
+            call = TheMovieDBApiService.INSTANCE.getMoviesAPI()
+                    .retrieveTopRated(getString(R.string.api_key));
+        } else {
+            call = TheMovieDBApiService.INSTANCE.getMoviesAPI()
+                    .retrieveMovies(
+                            getString(R.string.api_key),
+                            sortOption);
         }
 
-        mSub = call.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::moviesLoaded, this::movieError);
+        if(call != null) {
+
+            if (mSub != null) {
+                mSub.unsubscribe();
+                mSub = null;
+            }
+
+            mSub = call.observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::moviesLoaded, this::movieError);
+        }
     }
 
     protected void moviesLoaded(PopularMoviesResponse moviesResponse) {
@@ -177,7 +195,38 @@ public class MoviesActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        mBtnFavoriteMovies.setVisibility(DataBaseController.INSTANCE.getFavoriteMovies().size() > 0 ? View.VISIBLE : View.GONE);
+        checkFavorites();
+    }
+
+    private void checkFavorites() {
+        new AsyncTask<Void,Void,String>() {
+
+            @Override
+            protected String doInBackground(Void... params) {
+
+                try {
+                    Cursor cursor =  getContentResolver().query(MoviesCPContract.MovieEntry.CONTENT_URI,
+                            null,
+                            null,
+                            null,
+                            MoviesCPContract.MovieEntry.COLUMN_TITLE);
+                    runOnUiThread(new TimerTask() {
+                        @Override
+                        public void run() {
+                            mBtnFavoriteMovies.setVisibility(cursor.getCount() > 0 ? View.VISIBLE : View.GONE);
+                            cursor.close();
+                        }
+                    });
+
+                } catch (Exception e) {
+                    Log.e("DERP", "Failed to asynchronously load data.");
+                    e.printStackTrace();
+                    return null;
+                }
+
+                return null;
+            }
+        }.execute();
     }
 
     @Override
@@ -237,6 +286,12 @@ public class MoviesActivity extends AppCompatActivity {
                 return true;
             case R.id.vote_average_dessc:
                 requestMovies(getString(R.string.vote_average_desc));
+                return true;
+            case R.id.most_popular:
+                requestMovies(getString(R.string.most_popular));
+                return true;
+            case R.id.top_rated:
+                requestMovies(getString(R.string.top_rated));
                 return true;
             default:
                 break;
